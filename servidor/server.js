@@ -5,61 +5,61 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-let usuarios = [];
+let carrosEsportivos = [];
 
-app.post('/usuarios', (req, res) => {
+app.post('/carros', (req, res) => {
     const { nome, email } = req.body;
     
     if (!nome || !email) {
         return res.status(400).json({ erro: 'Nome e email são obrigatórios' });
     }
 
-    const novoUsuario = { id: usuarios.length + 1, nome, email };
-    usuarios.push(novoUsuario);
+    const novoCarros = { id: carros.length + 1, nome, email };
+    carros.push(novoCarros);
     
-    res.status(201).json(novoUsuario);
+    res.status(201).json(novoCarros);
 });
 
-app.get('/usuarios', (req, res) => {
+app.get('/carros', (req, res) => {
     res.status(200).json(usuarios);
 });
 
-app.get('/usuarios/:id', (req, res) => {
+app.get('/carros/:id', (req, res) => {
     const { id } = req.params;
-    const usuario = usuarios.find(u => u.id === parseInt(id));
+    const carros = carros.find(u => u.id === parseInt(id));
     
-    if (!usuario) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+    if (!carros) {
+        return res.status(404).json({ erro: 'carros não encontrado' });
     }
     
-    res.status(200).json(usuario);
+    res.status(200).json(carros);
 });
 
-app.put('/usuarios/:id', (req, res) => {
+app.put('/carros/:id', (req, res) => {
     const { id } = req.params;
     const { nome, email } = req.body;
     
-    const usuario = usuarios.find(u => u.id === parseInt(id));
+    const carros = carros.find(u => u.id === parseInt(id));
     
-    if (!usuario) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+    if (!carros) {
+        return res.status(404).json({ erro: 'carros não encontrado' });
     }
     
-    usuario.nome = nome || usuario.nome;
-    usuario.email = email || usuario.email;
+    carros.nome = nome || carros.nome;
+    carros.email = email || carros.email;
     
-    res.status(200).json(usuario);
+    res.status(200).json(carros);
 });
 
-app.delete('/usuarios/:id', (req, res) => {
+app.delete('/carros/:id', (req, res) => {
     const { id } = req.params;
-    const index = usuarios.findIndex(u => u.id === parseInt(id));
+    const index = carros.findIndex(u => u.id === parseInt(id));
     
     if (index === -1) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+        return res.status(404).json({ erro: 'carros não encontrado' });
     }
     
-    usuarios.splice(index, 1);
+    carros.splice(index, 1);
     res.status(204).send();
 });
 
